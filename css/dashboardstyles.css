@@ -1,0 +1,45 @@
+/* General Page Style */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+}
+
+/* Top Navigation Bar */
+.top-nav {
+    background-color: #2c3e50;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #1abc9c;
+}
+
+/* Main content */
+.content {
+    padding: 40px;
+    text-align: center;
+}
+
+.content h2 {
+    color: #2c3e50;
+    font-size: 28px;
+}

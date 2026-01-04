@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Products</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        const productList = [
+            { id: 1, name: "Chairs" },
+            { id: 2, name: "Tents" },
+            { id: 3, name: "Tables" },
+            { id: 4, name: "Lamps" },
+            { id: 5, name: "Flowers" }
+        ];
+
+        function toggleQuantity(productId) {
+            const wrapper = document.getElementById(`product-wrapper-${productId}`);
+            const checked = document.getElementById(`check-${productId}`).checked;
+
+            if (checked) {
+                // Show quantity input
+                const input = document.createElement("input");
+                input.type = "number";
+                input.name = "quantities[]";
+                input.placeholder = "Quantity";
+                input.required = true;
+                input.id = `qty-${productId}`;
+
+                const hidden = document.createElement("input");
+                hidden.type = "hidden";
+                hidden.name = "products[]";
+                hidden.value = productId;
+                hidden.id = `hidden-${productId}`;
+
+                wrapper.appendChild(hidden);
+                wrapper.appendChild(input);
+            } else {
+                // Remove quantity and hidden product input
+                const qtyInput = document.getElementById(`qty-${productId}`);
+                const hiddenInput = document.getElementById(`hidden-${productId}`);
+                if (qtyInput) qtyInput.remove();
+                if (hiddenInput) hiddenInput.remove();
+            }
+        }
+
+        // Make sure booking date can't be in the past
+    document.addEventListener("DOMContentLoaded", function () {
+      const bookingDateInput = document.getElementById("booking_date");
+      if (bookingDateInput) {
+        const today = new Date().toISOString().split("T")[0];
+        bookingDateInput.min = today;
+      }
+    });
+
+    function validateForm() {
+      const errorEl = document.getElementById("formError");
+      if (errorEl) errorEl.textContent = "";
+
+      // Validate product selection
+      const checkedBoxes = document.querySelectorAll("input[type='checkbox']:checked");
+      if (checkedBoxes.length === 0) {
+        if (errorEl) errorEl.textContent = "Please select at least one product.";
+        else alert("Please select at least one product.");
+        return false;
+      }
+
+      // Validate quantities
+      const quantities = document.querySelectorAll("input[name='quantities[]']");
+      for (let input of quantities) {
+        if (input.value.trim() === "" || parseInt(input.value) <= 0) {
+          if (errorEl) errorEl.textContent = "Please enter a valid quantity for each selected product.";
+          else alert("Please enter a valid quantity for each selected product.");
+          return false;
+        }
+      }
+
+      // Validate booking date
+      const bookingDateInput = document.getElementById("booking_date");
+      if (!bookingDateInput || bookingDateInput.value === "") {
+        if (errorEl) errorEl.textContent = "Please select a booking date.";
+        else alert("Please select a booking date.");
+        return false;
+      }
+
+      const bookingDate = new Date(bookingDateInput.value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // normalize
+
+      if (bookingDate < today) {
+        if (errorEl) errorEl.textContent = "Booking date cannot be in the past.";
+        else alert("Booking date cannot be in the past.");
+        return false;
+      }
+
+      // Validate notes (optional)
+      const notes = document.getElementById("notes");
+      if (notes && notes.value.length > 300) {
+        if (errorEl) errorEl.textContent = "Notes should not exceed 300 characters.";
+        else alert("Notes should not exceed 300 characters.");
+        return false;
+      }
+
+      return true;
+    }
+    </script>
+</head>
+<body>
+ <div class="page-container">
+    <form action="booking.php" method="POST" onsubmit="return validateForm()">
+    <h2>Book Products</h2>
+
+    <div>
+        <!-- Dynamically generate checkbox list -->
+        <script>
+            document.write('<div id="products-list">');
+            productList.forEach(p => {
+                document.write(`
+                    <div id="product-wrapper-${p.id}">
+                        <label>
+                            <input type="checkbox" id="check-${p.id}" onchange="toggleQuantity(${p.id})">
+                            ${p.name}
+                        </label>
+                    </div>
+                `);
+            });
+            document.write('</div>');
+        </script>
+    </div>
+
+    <br>
+
+<label for="booking_date">Booking Date:</label>
+<input type="date" name="booking_date" id="booking_date" required>
+
+<br><br>
+
+<label for="notes">Additional Notes (optional):</label><br>
+<textarea name="notes" id="notes" rows="4" cols="50" placeholder="Enter any special instructions..."></textarea>
+
+<br><br>
+<button type="submit">Book</button>
+
+</form>
+</div>
+
+
+</body>
+
+<footer style="text-align:center; padding:15px; background:#1868b3; color:#fff; border-radius: 0 0 12px 12px; margin-top: 30px;">
+  &copy; DecoRwanda 2025
+</footer>
+
+</html>

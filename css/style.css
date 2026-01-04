@@ -1,0 +1,100 @@
+/* Global page layout */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e4edf3; /* Soft blue-gray */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container that wraps page content (like the form) */
+.page-container {
+    flex: 1; /* Takes all space between header and footer */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+    padding-bottom: 100px; /* space before the footer */
+}
+
+/* Form styling */
+form {
+    background: #1868b3;
+    padding: 15px;            /* reduced from 20px */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    width: 320px;             /* slightly narrower */
+    max-width: 100%;
+    flex-shrink: 0;
+
+    max-height: 500px;        /* reduced from 600px */
+    margin-bottom: 40px;      /* adds spacing above footer */
+}
+
+
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Form button */
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+form h2 {
+    text-align: center;
+    color: black;
+    margin-bottom: 15px;
+}
+
+/* Footer stays at bottom */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;             /* minimized height */
+    background: #f5f5f5;
+    color: #333;
+    text-align: center;
+    line-height: 30px;        /* aligns text vertically */
+    padding: 0;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
+    font-size: 13px;
+}
+
+
+
